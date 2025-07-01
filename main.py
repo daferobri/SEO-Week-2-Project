@@ -71,8 +71,8 @@ def main():
     else:
         name = input("Name: ").strip()
         with engine.connect() as connection:
-            t = text("SELECT * FROM users WHERE name=:name;")
-            user_info = connection.execute(t, {"name": name}).fetchall()
+            t = users.select().where(users.c.name == name)
+            user_info = connection.execute(t).fetchall()
             print(user_info)
     
     # with engine.connect() as connection:
