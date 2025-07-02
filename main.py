@@ -16,7 +16,7 @@ users = Table(
     'users', meta,
     Column('id', Integer, primary_key=True),
     Column('name', String),
-    Column('phone', String),
+    Column('email', String),
     Column('loc', String)
 )
 
@@ -34,8 +34,8 @@ def init_database():
     return engine
 
 
-def add_user(engine, name, phone, loc):
-    add = users.insert().values(name=name, phone=phone, loc=loc)
+def add_user(engine, name, email, loc):
+    add = users.insert().values(name=name, email=email, loc=loc)
 
     with engine.connect() as connection:
         connection.execute(add)
@@ -59,7 +59,7 @@ def main():
                 break
 
         while True:
-            phone = input("Phone number: ").strip()
+            email = input("Email: ").strip()
             if name:
                 break
 
@@ -70,7 +70,7 @@ def main():
                 if loc:
                     break
 
-        add_user(engine, name, phone, loc)
+        add_user(engine, name, email, loc)
 
     else:
         name = input("Name: ").strip()
