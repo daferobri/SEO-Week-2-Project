@@ -21,15 +21,11 @@ users = Table(
 )
 
 
-def get_geohash(user_loc):
+def get_coordinates(user_loc):
     geolocator = Nominatim(user_agent="project")
     location = geolocator.geocode(user_loc)
-
-    if not location:
-        return None
-
-    geohash_string = geohash.encode(location.latitude, location.longitude)
-    return geohash_string
+    coords = f"{location.latitude},{location.longitude}"
+    return coords
 
 
 def init_database():
@@ -70,7 +66,7 @@ def main():
         while True:
             loc = input("Location: ").strip()
             if loc:
-                loc = get_geohash(loc)
+                loc = get_coordinates(loc)
                 if loc:
                     break
 
