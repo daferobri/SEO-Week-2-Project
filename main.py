@@ -28,7 +28,7 @@ def main():
         user = get_user_by_name(engine, username)
 
         if not user:
-            print("User does not exist, Please Register an account first " 
+            print("User does not exist, Please Register an account first "
                   "or check your username")
             return
         user_email = user['email']

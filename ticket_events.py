@@ -1,6 +1,6 @@
 from database import (
-	init_database, users, get_user_by_name, save_event_for_user,
-	get_saved_events, add_user, get_coordinates
+    init_database, users, get_user_by_name, save_event_for_user,
+    get_saved_events, add_user, get_coordinates
 )
 import ticketpy
 from dotenv import load_dotenv
@@ -23,7 +23,7 @@ def format_date_for_tmAPI(date_as_str):
 
 
 def fetch_events_for_user(engine, username, date_for_event,
-						 send_email_flag=False, user_email=None):
+						  send_email_flag=False, user_email=None):
 	user = get_user_by_name(engine, username)
 	email_results = ""
 	# if you cant find the username print out you cant find it and return
