@@ -22,3 +22,4 @@ def get_email_html(contents):
         return html_code
     else:
         return "Error"
+        

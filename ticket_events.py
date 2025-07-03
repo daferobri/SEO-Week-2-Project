@@ -21,7 +21,7 @@ def format_date_for_tmAPI(date_as_str):
 def fetch_events_for_user(engine,username, date_for_event,send_email_flag = False, user_email = None):
   user = get_user_by_name(engine, username)
   email_results = ""
-  #if you cant find the username print out you cant find it and return
+  # if you cant find the username print out you cant find it and return
   if not user:
     print("Can't find this Username.")
     return
@@ -41,7 +41,7 @@ def fetch_events_for_user(engine,username, date_for_event,send_email_flag = Fals
       if not venue:
         continue
       email_results += f"Tickets for {event.name} are {event.status}\nLocation for this event is: {venue}\n"
-      print("Tickets for "+ event.name + " are", event.status)
+      print("Tickets for " + event.name + " are", event.status)
       print("Event starts at: ", event.local_start_time)
       print("Location for this event is at: " + str(venue))
       print("Event ID: ", event.id)

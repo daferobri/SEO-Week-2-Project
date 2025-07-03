@@ -23,9 +23,9 @@ def main():
         user = get_user_by_name(engine, username)
 
         if not user:
-          print("User does not exist, Please Register an account first or check your username")
-          return
-        user_email = user['email'] 
+            print("User does not exist, Please Register an account first or check your username")
+            return
+        user_email = user['email']
 
     while True:
         action = input("Press 's' to Search events, 'v' to view saved events, 'e' to email events,  or any other letter to quit: ")
@@ -40,6 +40,7 @@ def main():
         else:
             print("Exiting Out the Program")
             break
+
 
 if __name__ == "__main__":
     main()

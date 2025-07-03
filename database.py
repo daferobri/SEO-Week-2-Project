@@ -21,26 +21,28 @@ users = Table(
     Column('saved_events', String)
 )
 
-def save_event_for_user(engine,user_id, tm_event_id):
+
+def save_event_for_user(engine, user_id, tm_event_id):
     user = get_user_by_id(engine, user_id)
     if user['saved_events']:
         saved_events_list = user['saved_events'].split(',')
     else:
         saved_events_list = []
     
-    #check if the event was already saved
+    # check if the event was already saved
     if tm_event_id in saved_events_list:
         return False
 
     saved_events_list.append(tm_event_id)
     saved_events_as_string = ','.join(saved_events_list)
 
-
     with engine.connect() as connection:
-        query = users.update().where(users.c.id == user_id).values(saved_events=saved_events_as_string)
+        query = users.update().where(users.c.id == user_id).values(
+            saved_events=saved_events_as_string)
         connection.execute(query)
         connection.commit()
         return True
+
 
 def get_saved_events(engine, user_id):
     user = get_user_by_id(engine, user_id)
@@ -72,6 +74,7 @@ def add_user(engine, name, email, loc):
         connection.execute(add)
         connection.commit()
 
+
 def get_user_by_name(engine, name):
     with engine.connect() as connection:
         query = users.select().where(users.c.name == name)
@@ -87,6 +90,7 @@ def get_user_by_name(engine, name):
         else:
             return None
 
+
 def get_user_by_id(engine, user_id):
     with engine.connect() as connection:
         query = users.select().where(users.c.id == user_id)
@@ -101,7 +105,8 @@ def get_user_by_id(engine, user_id):
             }
         return None
     
-def update_User(engine, user_id, name=None,email=None,loc=None):
+
+def update_User(engine, user_id, name=None, email=None, loc=None):
     update_info = {}
     if name:
         update_info['name'] = name
@@ -125,4 +130,3 @@ def update_User(engine, user_id, name=None,email=None,loc=None):
                     users.update().where(users.c.id == user_id).values(loc=loc)
                 )
             connection.commit()
-

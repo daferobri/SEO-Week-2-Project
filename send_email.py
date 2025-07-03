@@ -18,10 +18,10 @@ def send_email(address, events):
     html = get_email_html(prompt)
 
     params: resend.Emails.SendParams = {
-    "from": "Acme <onboarding@resend.dev>",
-    "to": ["daferobri5941@gmail.com"],
-    "subject": "Events Near You",
-    "html": html
+        "from": "Acme <onboarding@resend.dev>",
+        "to": ["daferobri5941@gmail.com"],
+        "subject": "Events Near You",
+        "html": html
     }
 
     email = resend.Emails.send(params)
