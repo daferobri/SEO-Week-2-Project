@@ -19,10 +19,10 @@ def send_email(address, events):
 
     params: resend.Emails.SendParams = {
         "from": "Acme <onboarding@resend.dev>",
-        "to": ["daferobri5941@gmail.com"],
+        "to": [address],
         "subject": "Events Near You",
         "html": html
     }
 
     email = resend.Emails.send(params)
-    print(email)
+    # print(email)
