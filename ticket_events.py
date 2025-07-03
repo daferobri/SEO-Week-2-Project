@@ -23,7 +23,7 @@ def format_date_for_tmAPI(date_as_str):
 
 
 def fetch_events_for_user(engine, username, date_for_event,
-						send_email_flag=False, user_email=None):
+                          send_email_flag=False, user_email=None):
 	user = get_user_by_name(engine, username)
 	email_results = ""
 	# if you cant find the username print out you cant find it and return
