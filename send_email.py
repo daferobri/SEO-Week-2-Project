@@ -10,9 +10,7 @@ resend.api_key = os.environ["RESEND_API_KEY"]
 def send_email(address, events):
     prompt = f""" 
     Generate an HTML email about upcoming events. here are the event details:
-
     {events}
-
     Please create a nicely formatted HTML email with these events, include proper styling and structure
     """
     html = get_email_html(prompt)

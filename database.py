@@ -28,7 +28,6 @@ def save_event_for_user(engine, user_id, tm_event_id):
         saved_events_list = user['saved_events'].split(',')
     else:
         saved_events_list = []
-    
     # check if the event was already saved
     if tm_event_id in saved_events_list:
         return False
@@ -69,7 +68,7 @@ def init_database():
 
 
 def add_user(engine, name, email, loc):
-    add = users.insert().values(name=name, email=email, loc=loc, saved_events = '')
+    add = users.insert().values(name=name, email=email, loc=loc, saved_events='')
     with engine.connect() as connection:
         connection.execute(add)
         connection.commit()
@@ -106,7 +105,8 @@ def get_user_by_id(engine, user_id):
         return None
     
 
-def update_User(engine, user_id, name=None, email=None, loc=None):
+def update_User(engine, user_id, name=None, email=None,
+                loc=None):
     update_info = {}
     if name:
         update_info['name'] = name

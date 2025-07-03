@@ -8,6 +8,7 @@ my_api_key = os.getenv('GENAI_KEY')
 
 genai.configure(api_key=my_api_key)
 
+
 def get_email_html(contents):
     response = genai.GenerativeModel("gemini-1.5-flash").generate_content(contents)
     markdown_match = re.search(r"```html\s*(.*?)\s*```", response.text, re.DOTALL | re.IGNORECASE)
