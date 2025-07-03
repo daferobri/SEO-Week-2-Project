@@ -66,7 +66,7 @@ def fetch_events_for_user(engine, username, date_for_event, send_email_flag = Fa
 				print("Your email was sent. you better not forget...")
 
 
-def fetch_events_and_send_email(engine,username, date_for_event,send_email_flag = False, user_email = None):
+def fetch_events_and_send_email(engine,username, date_for_event, send_email_flag = False, user_email = None):
 	user = get_user_by_name(engine, username)
 	# if you cant find the username print out you cant find it and return
 	if not user:

@@ -36,7 +36,8 @@ def save_event_for_user(engine, user_id, tm_event_id):
     saved_events_as_string = ','.join(saved_events_list)
 
     with engine.connect() as connection:
-        query = users.update().where(users.c.id == user_id).values(
+        query = users.update().where(
+            users.c.id == user_id).values(
             saved_events=saved_events_as_string)
         connection.execute(query)
         connection.commit()
@@ -81,8 +82,10 @@ def add_user(engine, name, email, loc):
 
 def get_user_by_name(engine, name):
     with engine.connect() as connection:
-        query = users.select().where(users.c.name == name)
-        result = connection.execute(query).fetchone()
+        query = users.select().where(
+            users.c.name == name)
+        result = connection.execute(
+            query).fetchone()
         if result:
             return {
                 'id': result[0],
@@ -97,8 +100,10 @@ def get_user_by_name(engine, name):
 
 def get_user_by_id(engine, user_id):
     with engine.connect() as connection:
-        query = users.select().where(users.c.id == user_id)
-        result = connection.execute(query).fetchone()
+        query = users.select().where(
+            users.c.id == user_id)
+        result = connection.execute(
+            query).fetchone()
         if result:
             return {
                 'id': result[0],
@@ -119,19 +124,25 @@ def update_User(engine, user_id, name=None, email=None,
         update_info['email'] = email
     if loc:
         update_info['loc'] = loc
-    
+
     if update_info:
         with engine.connect() as connection:
             if name:
                 connection.execute(
-                    users.update().where(users.c.id == user_id).values(name=name)
+                    users.update().where(
+                        users.c.id == user_id
+                    ).values(name=name)
                 )
             if email:
                 connection.execute(
-                    users.update().where(users.c.id == user_id).values(email=email)
+                    users.update().where(
+                        users.c.id == user_id
+                    ).values(email=email)
                 )
             if loc:
                 connection.execute(
-                    users.update().where(users.c.id == user_id).values(loc=loc)
+                    users.update().where(
+                        users.c.id == user_id
+                    ).values(loc=loc)
                 )
             connection.commit()
