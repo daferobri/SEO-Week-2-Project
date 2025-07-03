@@ -1,6 +1,7 @@
 from ticket_events import fetch_events_for_user, show_saved_events, fetch_events_and_send_email
 from database import init_database, get_user_by_name, add_user, get_coordinates
 
+
 def main():
     engine = init_database()
 
