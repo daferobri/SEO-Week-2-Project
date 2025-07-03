@@ -25,7 +25,7 @@ def fetch_events_for_user(engine, username, date_for_event, send_email_flag = Fa
 	# if you cant find the username print out you cant find it and return
 	if not user:
 		print("Can't find this Username.")
-	return
+		return
 
 	start_utc, end_utc = format_date_for_tmAPI(date_for_event)
 
