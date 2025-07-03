@@ -24,16 +24,16 @@ def format_date_for_tmAPI(date_as_str):
 
 def fetch_events_for_user(engine, username, date_for_event,
                           send_email_flag=False, user_email=None):
-	user = get_user_by_name(engine, username)
-	email_results = ""
+    user = get_user_by_name(engine, username)
+    email_results = ""
 	# if you cant find the username print out you cant find it and return
-	if not user:
-		print("Can't find this Username.")
-		return
+    if not user:
+	    print("Can't find this Username.")
+	    return
 
-	start_utc, end_utc = format_date_for_tmAPI(date_for_event)
+    start_utc, end_utc = format_date_for_tmAPI(date_for_event)
 
-	pages = ticketclient.events.find(
+    pages = ticketclient.events.find(
 		# took out the classification parameter b/c
 		# we want all events not a certain type
 		latlong=user['loc'],
@@ -41,35 +41,35 @@ def fetch_events_for_user(engine, username, date_for_event,
 		start_date_time=start_utc,
 		end_date_time=end_utc
 	)
-	for page in pages:
-		for event in page:
-			venue = event.venues[0] if event.venues else "can't find the venue..."
-			if not venue:
-				continue
-			email_results += (f"Tickets for {event.name} are {event.status}\n"
-							  f"Location for this event is: {venue}\n")
-			print("Tickets for " + event.name + " are", event.status)
-			print("Event starts at: ", event.local_start_time)
-			print("Location for this event is at: " + str(venue))
-			print("Event ID: ", event.id)
+    for page in pages:
+	    for event in page:
+		    venue = event.venues[0] if event.venues else "can't find the venue..."
+		    if not venue:
+			    continue
+		    email_results += (f"Tickets for {event.name} are {event.status}\n"
+                              f"Location for this event is: {venue}\n")
+		    print("Tickets for " + event.name + " are", event.status)
+		    print("Event starts at: ", event.local_start_time)
+		    print("Location for this event is at: " + str(venue))
+		    print("Event ID: ", event.id)
 
-			save_choice = input("Save this Event? (y/n): ").strip().lower()
-			if save_choice == 'y':
-				successful = save_event_for_user(engine, user['id'], event.id)
-				if successful:
-					print("your Event was Saved.")
-				else:
-					print("Event has already been saved.")
-			elif save_choice == 'n':
-				pass
-			else:
-				return
+		    save_choice = input("Save this Event? (y/n): ").strip().lower()
+		    if save_choice == 'y':
+			    successful = save_event_for_user(engine, user['id'], event.id)
+			    if successful:
+				    print("your Event was Saved.")
+			    else:
+				    print("Event has already been saved.")
+		    elif save_choice == 'n':
+			    pass
+		    else:
+			    return
 
-			time.sleep(0.3)
+		    time.sleep(0.3)
 
-			if send_email_flag and user_email and email_results:
-				send_email(user_email, email_results)
-				print("Your email was sent. you better not forget...")
+		    if send_email_flag and user_email and email_results:
+			    send_email(user_email, email_results)
+			    print("Your email was sent. you better not forget...")
 
 
 def fetch_events_and_send_email(engine, username, date_for_event,
