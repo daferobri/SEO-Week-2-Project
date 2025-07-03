@@ -19,7 +19,7 @@ def main():
     if reg_or_login == "r":
         name = input("Name: ").strip()
         email = input("Email: ").strip()
-        loc = get_coordinates(input("Location: ").strip())
+        loc = get_coordinates(input("Enter your Location in the format (City, State): ").strip())
         add_user(engine, name, email, loc)
         username = name
         user_email = email
