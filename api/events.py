@@ -5,6 +5,7 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 import json
 import os
+from send_email import send_email
 
 load_dotenv()
 api_key = os.getenv("API_KEY") #get api key from the env file
@@ -76,10 +77,14 @@ def fetch_events(state_code, start_date, end_date):
     end_date_time = end_utc
   )
   #print the events found
+  results = ""
   for page in pages:
     for event in page:
       #used the dir() method to see what methods 'event' has, i also looked at the docs for ticketpy
-      print("Tickets for " + event.name + " are "+ event.status,  "\nLocation for this event is: ", event.venues[0])
+      results += f"Tickets for {event.name} are {event.status}\n Location for this event is: {event.venues[0]}\n"
+  # print(repr(results))
+  send_email("daferobri5941@gmail.com", results)
+
 def convert_local_date_to_UTC(start_date,end_date, timezone_string):
 
   tz = ZoneInfo(timezone_string)
