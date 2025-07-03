@@ -13,13 +13,13 @@ ticketclient = ticketpy.ApiClient(api_key)
 
 
 def format_date_for_tmAPI(date_as_str):
-	date = datetime.strptime(date_as_str, "%Y-%m-%d")
-	start_utc = date.replace(hour=0, minute=0).strftime("%Y-%m-%dT%H:%M:%SZ")
-	end_utc = date.replace(hour=23, minute=59).strftime("%Y-%m-%dT%H:%M:%SZ")
-	return start_utc, end_utc
+    date = datetime.strptime(date_as_str, "%Y-%m-%d")
+    start_utc = date.replace(hour=0, minute=0).strftime("%Y-%m-%dT%H:%M:%SZ")
+    end_utc = date.replace(hour=23, minute=59).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return start_utc, end_utc
 
 
-def fetch_events_for_user(engine, username, date_for_event, send_email_flag = False, user_email = None):
+def fetch_events_for_user(engine, username, date_for_event, send_email_flag=False, user_email=None):
 	user = get_user_by_name(engine, username)
 	email_results = ""
 	# if you cant find the username print out you cant find it and return
@@ -66,7 +66,7 @@ def fetch_events_for_user(engine, username, date_for_event, send_email_flag = Fa
 				print("Your email was sent. you better not forget...")
 
 
-def fetch_events_and_send_email(engine,username, date_for_event, send_email_flag = False, user_email = None):
+def fetch_events_and_send_email(engine, username, date_for_event, send_email_flag=False, user_email=None):
 	user = get_user_by_name(engine, username)
 	# if you cant find the username print out you cant find it and return
 	if not user:
