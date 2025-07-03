@@ -52,8 +52,7 @@ def fetch_events_for_user(engine, username, date_for_event,
 		    print("Event starts at: ", event.local_start_time)
 		    print("Location for this event is at: " + str(venue))
 		    print("Event ID: ", event.id)
-
-		    save_choice = input("Save this Event? (y/n): ").strip().lower()
+		    save_choice = input("Save this Event? (y/n), to exit press any other letter: ").strip().lower()
 		    if save_choice == 'y':
 			    successful = save_event_for_user(engine, user['id'], event.id)
 			    if successful:
@@ -120,6 +119,7 @@ def show_saved_events(engine, username):
 	for event_id in saved_events_id:
 		event = ticketclient.events.by_id(event_id)
 		venue = event.venues[0] if event.venues else "can't find the venue..."
+		print("=" * 50)
 		print("Tickets for " + event.name + " are", event.status)
 		print("Event starts at: ", event.local_start_time)
 		print("Location for this event is at: " + str(venue))
