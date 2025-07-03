@@ -1,3 +1,5 @@
 .env
 project.db
 __pycache__/
+# Databases
+*.db
