@@ -2,7 +2,7 @@ from ticket_events import (
     fetch_events_for_user, show_saved_events, fetch_events_and_send_email
 )
 from database import (
-     init_database, get_user_by_name, add_user, get_coordinates
+    init_database, get_user_by_name, add_user, get_coordinates
 )
 
 
@@ -28,20 +28,28 @@ def main():
         user = get_user_by_name(engine, username)
 
         if not user:
-            print("User does not exist, Please Register an account first or check your username")
+            print("User does not exist, Please Register an account first " 
+                  "or check your username")
             return
         user_email = user['email']
 
     while True:
-        action = input("Press 's' to Search events, 'v' to view saved events, 'e' to email events,  or any other letter to quit: ")
+        action = input("Press 's' to Search events, 'v' to view saved events, "
+                       "'e' to email events,  or any other letter to quit: ")
         if action == 's':
-            date_for_events = input("Enter the date for events in this format (YYYY-MM-DD): ")
+            date_for_events = input(
+                "Enter the date for events in this format (YYYY-MM-DD): "
+            )
             fetch_events_for_user(engine, username, date_for_events)
         elif action == 'v':
             show_saved_events(engine, username)
         elif action == 'e':
-            date_for_events = input("Enter the date for events in this format (YYYY-MM-DD): ")
-            fetch_events_and_send_email(engine, username, date_for_events, True, user_email)
+            date_for_events = input(
+                "Enter the date for events in this format (YYYY-MM-DD): "
+            )
+            fetch_events_and_send_email(
+                engine, username, date_for_events, True, user_email
+            )
         else:
             print("Exiting Out the Program")
             break

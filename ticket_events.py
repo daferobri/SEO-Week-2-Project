@@ -1,4 +1,7 @@
-from database import init_database, users, get_user_by_name, save_event_for_user, get_saved_events, add_user, get_coordinates
+from database import (
+	init_database, users, get_user_by_name, save_event_for_user,
+	get_saved_events, add_user, get_coordinates
+)
 import ticketpy
 from dotenv import load_dotenv
 from datetime import datetime
@@ -19,9 +22,10 @@ def format_date_for_tmAPI(date_as_str):
     return start_utc, end_utc
 
 
-def fetch_events_for_user(engine, username, date_for_event, send_email_flag=False, user_email=None):
+def fetch_events_for_user(engine, username, date_for_event,
+						 send_email_flag=False, user_email=None):
 	user = get_user_by_name(engine, username)
-	email_results=""
+	email_results = ""
 	# if you cant find the username print out you cant find it and return
 	if not user:
 		print("Can't find this Username.")
@@ -41,7 +45,8 @@ def fetch_events_for_user(engine, username, date_for_event, send_email_flag=Fals
 			venue = event.venues[0] if event.venues else "can't find the venue..."
 			if not venue:
 				continue
-			email_results += f"Tickets for {event.name} are {event.status}\nLocation for this event is: {venue}\n"
+			email_results += (f"Tickets for {event.name} are {event.status}\n"
+							  f"Location for this event is: {venue}\n")
 			print("Tickets for " + event.name + " are", event.status)
 			print("Event starts at: ", event.local_start_time)
 			print("Location for this event is at: " + str(venue))
@@ -66,7 +71,8 @@ def fetch_events_for_user(engine, username, date_for_event, send_email_flag=Fals
 				print("Your email was sent. you better not forget...")
 
 
-def fetch_events_and_send_email(engine, username, date_for_event, send_email_flag=False, user_email=None):
+def fetch_events_and_send_email(engine, username, date_for_event,
+							   send_email_flag=False, user_email=None):
 	user = get_user_by_name(engine, username)
 	# if you cant find the username print out you cant find it and return
 	if not user:
@@ -76,18 +82,20 @@ def fetch_events_and_send_email(engine, username, date_for_event, send_email_fla
 	start_utc, end_utc = format_date_for_tmAPI(date_for_event)
 
 	pages = ticketclient.events.find(
-		latlong = user['loc'],
-		radius = "25",
-		start_date_time = start_utc,
-		end_date_time = end_utc
+		latlong=user['loc'],
+		radius="25",
+		start_date_time=start_utc,
+		end_date_time=end_utc
 	)
 	results = ""
 	for page in pages:
 		for event in page:
-			venue = event.venues[0] if event.venues else "can't find the venue..."
+			venue = (event.venues[0] if event.venues
+			else "can't find the venue...")
 			if not venue:
 				continue
-			results += f"Tickets for {event.name} are {event.status}\nLocation for this event is: {venue}\n"
+			results += (f"Tickets for {event.name} are {event.status}\n"
+						f"Location for this event is: {venue}\n")
 		if results:
 			send_email(user_email, results)
 			print("Email sent, go check it out!")
@@ -105,7 +113,7 @@ def show_saved_events(engine, username):
 	if not saved_events_id:
 		print("you have no saved events")
 		return
-	
+
 	print("Here are the saved events " + username)
 
 	for event_id in saved_events_id:

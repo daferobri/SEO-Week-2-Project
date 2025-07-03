@@ -8,7 +8,6 @@ from sqlalchemy import (
     text,
 )
 from geopy.geocoders import Nominatim
-import geohash
 
 meta = MetaData()
 
@@ -115,7 +114,7 @@ def get_user_by_id(engine, user_id):
         return None
 
 
-def update_User(engine, user_id, name=None, email=None,
+def update_user(engine, user_id, name=None, email=None,
                 loc=None):
     update_info = {}
     if name:
